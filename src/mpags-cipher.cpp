@@ -8,6 +8,7 @@
 #include "TransformChar.hpp"
 #include "ProcessCommandLine.hpp"
 #include "RunCaesarCipher.hpp"
+#include "CaesarCipher.hpp"
   
 // Main function of the mpags-cipher program
 int main(int argc, char* argv[])
@@ -23,8 +24,10 @@ int main(int argc, char* argv[])
   std::string cipher_key {""};
   bool encrypt {true};
 
+  ProgramSettings settings{helpRequested,versionRequested,inputFile,outputFile,cipher_key,encrypt};
+
   // Process command line arguments
-  bool cmdLineStatus { processCommandLine(cmdLineArgs, helpRequested, versionRequested, inputFile, outputFile, cipher_key, encrypt) };
+  bool cmdLineStatus { processCommandLine(cmdLineArgs, settings) };
 
   // Any failure in the argument processing means we can't continue
   // Use a non-zero return value to indicate failure
@@ -118,6 +121,7 @@ int main(int argc, char* argv[])
   }
 
   // Run the Caesar cipher (using the specified key and encrypt/decrypt flag) on the input text
+
   std::string outputText { runCaesarCipher( inputText, caesar_key, encrypt ) };
 
   // Output the transliterated text
